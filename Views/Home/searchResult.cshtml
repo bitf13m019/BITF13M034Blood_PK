@@ -1,0 +1,103 @@
+﻿@using BloodPk.Models
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#search_blood").click(function () {
+                var group = $("#group").val();
+                var city = $("#city").val();
+                var serviceURL = '/Home/search_blood';
+                alert("in click");
+                $.ajax({
+                    type: "Post",
+                    url: serviceURL,
+                    data: { 'userName': group, 'city': city },
+                    success: successFunc,
+                    error: errorFunc
+                });
+
+                function successFunc(data) {
+                    
+                   
+                    alert(data);
+                    
+                    
+                    //var table = "<table>";
+                    //table += '<tr>';
+                    //table += '<th>' + data.Name + '</th><th>' + data.Blood + ' ' + data.Group + '</th><th>' + data.City + '</th><th>' + data.Contact + '</th></tr>'
+                   
+                    
+                    //$.each(data, function (i, item) {
+                    //    table += '<tr><td>' + item.name + '</td><td>' + item.blood_Group + '</td><td>' + item.contact + '</td><td>' + item.city + '</td></tr>';
+                    //});
+                    //table += '</table>'
+                    $('#search_result').append(data);
+
+                    //if (data == "0") {
+                    //    $("#send").show("slow");
+                    //    $("#showUserName").hide("slow");
+                    //}
+                    //else {
+                    //    $("#send").hide("slow");
+                    //    $("#showUserName").show("slow");
+                    //}
+                    return false;
+                }
+                function errorFunc(xhr, status, err) {
+                    alert('No Record Found');
+                }
+                alert("Back");
+            });
+        });
+    </script>
+</head>
+<body>
+    
+    <div class="banner-box">
+        <div class="wrap">
+            <div class="main-top">
+                <div class="main">
+
+                    <div class="search">
+                        <form method="post">
+                            Select Your Group
+                            <select id="group">
+                                <option value="O+">O+</option>
+                                <option value="o-">O-</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select><br>
+
+                            Select Your City
+                            <select id="city">
+                                <option value="Lahore">Lahore</option>
+                                <option value="Karachi">Karachi</option>
+                                <option value="Queta">Queta</option>
+                                <option value="Peshawar">Peshawar</option>
+                                <option value="Sialkot">Sialkot</option>
+                            </select><br>
+
+                            <input id="search_blood" type="submit" value="">
+                        </form>
+                    </div>
+
+                    <div class="col_1_of_3 span_1_of_3">
+                        <h3>Search Blood Here!</h3>
+                    </div>
+
+                    <div class="clear" id="search_result"></div>
+                
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
